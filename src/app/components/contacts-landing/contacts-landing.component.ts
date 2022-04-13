@@ -13,22 +13,31 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class ContactsLandingComponent implements OnInit {
   defaultContacts: Contact[] = [];
+
   contacts: Contact[] = [];
-  searchValue = '';
+
+  queryValue = '';
+
   constructor(
     private contactsService: ContactsService,
+
     public dialog: MatDialog,
+
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.loadDefaultContacts();
+
     this.setLocalStorage();
+
     this.loadContacts();
   }
+
   loadContacts() {
     this.contacts = [...JSON.parse(localStorage.getItem('contacts'))];
   }
+
   setLocalStorage() {
     if (!JSON.parse(localStorage.getItem('contacts'))) {
       localStorage.setItem(
@@ -37,44 +46,55 @@ export class ContactsLandingComponent implements OnInit {
       );
     }
   }
+
   loadDefaultContacts() {
     this.contactsService
       .getContacts()
       .subscribe((res) => (this.defaultContacts = res));
   }
+
   openDialog(data: Contact): void {
     const dialogRef = this.dialog.open(ModalComponent, { data });
   }
-  searcherContact() {
-    const allContacts = [...JSON.parse(localStorage.getItem('contacts'))];
-    this.contacts = allContacts.filter((res) => {
+
+  query() {
+    const contacts = [...JSON.parse(localStorage.getItem('contacts'))];
+
+    this.contacts = contacts.filter((res) => {
       let name = res.firstName + '' + res.lastName;
       return name
         .toLowerCase()
-        .match(this.searchValue.replace(/\s+/g, '').trim().toLowerCase());
+        .match(this.queryValue.replace(/\s+/g, '').trim().toLowerCase());
     });
   }
+
   clearQuery() {
-    this.searchValue = '';
+    this.queryValue = '';
+
     this.loadContacts();
   }
+
   addContact() {
     this.router.navigate(['add-contact']);
   }
 
   editContact(contact: Contact) {
     this.contactsService.editContact$.next(contact);
+
     this.router.navigate(['edit-contact']);
   }
-  deleteContact(id: string) {
-    console.log(id);
 
+  deleteContact(id: string) {
     const contacts: Contact[] = [
       ...JSON.parse(localStorage.getItem('contacts')),
     ];
-    const newContacts = contacts.filter((item) => item.id !== id);
-    this.contacts = newContacts;
+
+    const updatedContacts = contacts.filter((item) => item.id !== id);
+
+    this.contacts = updatedContacts;
+
     localStorage.clear();
-    localStorage.setItem('contacts', JSON.stringify([...newContacts]));
+
+    localStorage.setItem('contacts', JSON.stringify([...updatedContacts]));
   }
 }

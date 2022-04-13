@@ -1,40 +1,62 @@
 <div class="contacts-landing">
-    <header class="contacts-hero">
-        <div class="contacts-hero__title">Contacts</div>
-    </header>
-    <section class="contacts-filter">
-        <mat-form-field class="example-form-field" appearance="fill">
-            <mat-label>Name</mat-label>
-            <input matInput type="text" [(ngModel)]="searchValue" (ngModelChange)="searcherContact()" />
-            <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="clearQuery()">
+  <header class="contacts-hero">
+    <div class="contacts-hero__title">Contacts</div>
+  </header>
+
+  <section class="contacts-filter">
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="queryValue"
+        (ngModelChange)="query()"
+      />
+      <button
+        *ngIf="queryValue"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="clearQuery()"
+      >
         <mat-icon>close</mat-icon>
       </button>
-        </mat-form-field>
-        <button mat-icon-button matSuffix (click)="addContact()">
+    </mat-form-field>
+    <button mat-icon-button matSuffix (click)="addContact()">
       <mat-icon>add</mat-icon>
     </button>
-    </section>
-    <section class="contacts-container">
-        <div class="contacts-init">
-            <div class="contact" *ngFor="let contact of contacts">
-                <div class="contact-info">
-                    <div class="contact-info__name">
-                        {{ contact.firstName }} {{ contact.lastName }}
-                    </div>
-                    <div class="contact-info__phone">{{ contact.phoneNumber }}</div>
-                </div>
-                <div class="contact-button-wrapper">
-                    <button mat-icon-button matSuffix (click)="openDialog(contact)">
-            <mat-icon>{{ "visibility" }}</mat-icon>
+  </section>
+
+  <section class="contacts-container">
+    <div class="contacts-init">
+      <div class="contact" *ngFor="let contact of contacts">
+        <div class="contact-info">
+          <div class="contact-info__name">
+            {{ contact.firstName }} {{ contact.lastName }}
+          </div>
+          <div class="contact-info__phone">{{ contact.phoneNumber }}</div>
+        </div>
+
+        <div class="contact-button-wrapper">
+          <button mat-icon-button matSuffix (click)="openDialog(contact)">
+            <mat-icon>visibility</mat-icon>
           </button>
-                    <button mat-icon-button class="contact-button edit" (click)="editContact(contact)">
+          <button
+            mat-icon-button
+            class="contact-button edit"
+            (click)="editContact(contact)"
+          >
             <mat-icon>edit</mat-icon>
           </button>
-                    <button mat-icon-button class="contact-button delete" (click)="deleteContact(contact.id)">
+          <button
+            mat-icon-button
+            class="contact-button delete"
+            (click)="deleteContact(contact.id)"
+          >
             <mat-icon>cancel</mat-icon>
           </button>
-                </div>
-            </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </div>

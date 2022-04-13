@@ -17,19 +17,27 @@ import * as uuid from 'uuid';
 })
 export class AddContactComponent {
   contactForm: FormGroup;
+
   minDate: Date;
+
   maxDate: Date;
 
   constructor(
     private formBuilder: FormBuilder,
+
     private formService: FormValidationService,
+
     private router: Router
   ) {
     this.devCartForm();
+
     const currentYear = new Date().getFullYear();
+
     this.minDate = new Date(currentYear - 100, 0, 0);
+
     this.maxDate = new Date(currentYear - 1, 0, 0);
   }
+
   private devCartForm(): void {
     this.contactForm = this.formBuilder.group({
       firstName: [
@@ -40,7 +48,9 @@ export class AddContactComponent {
           Validators.maxLength(15),
         ]),
       ],
+
       lastName: ['', [Validators.maxLength(15)]],
+
       phoneNumber: [
         '',
         Validators.compose([
@@ -49,6 +59,7 @@ export class AddContactComponent {
           Validators.max(10000000000000000),
         ]),
       ],
+
       email: [
         '',
         Validators.compose([
@@ -56,7 +67,9 @@ export class AddContactComponent {
           this.formService.isValidEmail,
         ]),
       ],
+
       address: ['', Validators.maxLength(30)],
+
       birth: [],
     });
   }
@@ -65,25 +78,32 @@ export class AddContactComponent {
       const contacts: Contact[] = [
         ...JSON.parse(localStorage.getItem('contacts')),
       ];
-      if (
-        !contacts.some(
-          (item) => item.phoneNumber == this.contactForm.value.phoneNumber
-        )
-      ) {
+      const isNumberExist = contacts.some(
+        (item) => item.phoneNumber == this.contactForm.value.phoneNumber
+      );
+
+      if (!isNumberExist) {
         const newContact = { id: uuid.v4(), ...this.contactForm.value };
+
         localStorage.clear();
+
         localStorage.setItem(
           'contacts',
           JSON.stringify([...contacts, newContact])
         );
+
         this.contactForm.reset();
+
         this.router.navigate(['']);
+      } else {
+        alert('This Phone Number is exist');
       }
     }
   }
 
   showErrors(fieldName: string): boolean {
     const field = this.contactForm.get(fieldName);
+
     return field.touched && field.invalid;
   }
 
