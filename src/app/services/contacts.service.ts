@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, delay, map, Observable, of } from 'rxjs';
 import { Contact } from '../models/contact';
+
 const contacts: Contact[] = [
   {
     id: 'f538cecb-9a46-4c2f-bae6-3cc118754131',
@@ -58,6 +59,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
 ];
+
 export const MODEL_CONTACT: Contact = {
   id: '',
   firstName: '',
@@ -67,13 +69,15 @@ export const MODEL_CONTACT: Contact = {
   address: '',
   birth: '',
 };
+
 @Injectable({
   providedIn: 'root',
 })
 export class ContactsService {
-  // data = of<Contact[]>(contacts);
   editContact$: BehaviorSubject<Contact> = new BehaviorSubject(MODEL_CONTACT);
+
   constructor() {}
+
   getContacts() {
     return of<Contact[]>(contacts);
   }

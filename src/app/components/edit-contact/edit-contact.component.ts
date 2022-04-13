@@ -17,25 +17,37 @@ import { FormValidationService } from 'src/app/services/form-validation.service'
 })
 export class EditContactComponent implements OnInit {
   contactForm: FormGroup;
+
   minDate: Date;
+
   maxDate: Date;
+
   contact: Contact;
 
   constructor(
     private formBuilder: FormBuilder,
+
     private formService: FormValidationService,
+
     private router: Router,
+
     private contactsService: ContactsService
   ) {
     this.devCartForm();
+
     const currentYear = new Date().getFullYear();
+
     this.minDate = new Date(currentYear - 100, 0, 0);
+
     this.maxDate = new Date(currentYear - 1, 0, 0);
   }
+
   ngOnInit(): void {
     this.contact = this.contactsService.editContact$.getValue();
+
     this.contactForm.patchValue(this.contact);
   }
+
   private devCartForm(): void {
     this.contactForm = this.formBuilder.group({
       firstName: [
@@ -46,7 +58,9 @@ export class EditContactComponent implements OnInit {
           Validators.maxLength(15),
         ]),
       ],
+
       lastName: ['', [Validators.maxLength(15)]],
+
       phoneNumber: [
         '',
         Validators.compose([
@@ -55,6 +69,7 @@ export class EditContactComponent implements OnInit {
           Validators.max(10000000000000000),
         ]),
       ],
+
       email: [
         '',
         Validators.compose([
@@ -62,37 +77,49 @@ export class EditContactComponent implements OnInit {
           this.formService.isValidEmail,
         ]),
       ],
+
       address: ['', Validators.maxLength(30)],
+
       birth: [],
     });
   }
+
   editContact() {
     if (this.contactForm.valid) {
       const editedContact = { id: this.contact.id, ...this.contactForm.value };
-      const contacts: Contact[] = [
+
+      let contacts: Contact[] = [
         ...JSON.parse(localStorage.getItem('contacts')),
       ];
-      // contacts.filter(
-      //   (item) =>
-      //     // (item.id === editedContact.id &&
-      //     //   item.phoneNumber !== editedContact.phoneNumber) &&
-      //     item.id === editedContact.id &&
-      //     item.phoneNumber === editedContact.phoneNumber
-      // );
-      const newArr = contacts.filter(
-        (item) => item.phoneNumber !== this.contact.phoneNumber
+
+      const contactsWithoutEditedContact = contacts.filter(
+        (item) => item.id !== editedContact.id
       );
-      localStorage.clear();
-      localStorage.setItem(
-        'contacts',
-        JSON.stringify([...newArr, editedContact])
-      );
-      this.contactForm.reset();
-      this.router.navigate(['']);
+
+      let isNumberExist = contactsWithoutEditedContact.filter(
+        (item: Contact) => item.phoneNumber == editedContact.phoneNumber
+      ).length;
+
+      if (!isNumberExist) {
+        localStorage.clear();
+
+        localStorage.setItem(
+          'contacts',
+          JSON.stringify([...contactsWithoutEditedContact, editedContact])
+        );
+
+        this.contactForm.reset();
+
+        this.router.navigate(['']);
+      } else {
+        alert('This Phone Number is exist');
+      }
     }
   }
+
   showErrors(fieldName: string): boolean {
     const field = this.contactForm.get(fieldName);
+
     return field.touched && field.invalid;
   }
 
