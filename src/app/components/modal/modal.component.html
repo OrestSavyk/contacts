@@ -1,0 +1,11 @@
+<div class="modal__wrapper">
+    <div mat-dialog-content class="modal__info">
+        <div class="modal__title">
+            Name: {{ data.firstName }} {{ data.lastName }}
+        </div>
+        <div class="modal__description">Number: {{ data.phoneNumber }}</div>
+        <div class="modal__description">Email: {{ data.email }}</div>
+        <div class="modal__description">Address: {{ data.address }}</div>
+        <div class="modal__description">Birthday: {{ data.birth | date }}</div>
+    </div>
+</div>
