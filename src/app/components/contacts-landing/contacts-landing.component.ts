@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { delay, map, Observable, of, switchMap } from 'rxjs';
 import { Contact } from 'src/app/models/contact';
 import { ContactsService } from 'src/app/services/contacts.service';
 import { ModalComponent } from '../modal/modal.component';
@@ -16,7 +15,7 @@ export class ContactsLandingComponent implements OnInit {
 
   contacts: Contact[] = [];
 
-  queryValue = '';
+  searcherValue = '';
 
   constructor(
     private contactsService: ContactsService,
@@ -49,7 +48,9 @@ export class ContactsLandingComponent implements OnInit {
 
   loadDefaultContacts() {
     this.contactsService
+
       .getContacts()
+
       .subscribe((res) => (this.defaultContacts = res));
   }
 
@@ -57,28 +58,31 @@ export class ContactsLandingComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalComponent, { data });
   }
 
-  query() {
+  searcher() {
     const contacts = [...JSON.parse(localStorage.getItem('contacts'))];
 
     this.contacts = contacts.filter((res) => {
       let name = res.firstName + '' + res.lastName;
+
       return name
+
         .toLowerCase()
-        .match(this.queryValue.replace(/\s+/g, '').trim().toLowerCase());
+
+        .match(this.searcherValue.replace(/\s+/g, '').trim().toLowerCase());
     });
   }
 
-  clearQuery() {
-    this.queryValue = '';
+  clearSearcher() {
+    this.searcherValue = '';
 
     this.loadContacts();
   }
 
-  addContact() {
+  navigateToAddContact() {
     this.router.navigate(['add-contact']);
   }
 
-  editContact(contact: Contact) {
+  navigateToEditContact(contact: Contact) {
     this.contactsService.editContact$.next(contact);
 
     this.router.navigate(['edit-contact']);
