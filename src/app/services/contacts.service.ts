@@ -80,4 +80,27 @@ export class ContactsService {
   getContacts() {
     return of<Contact[]>(contacts);
   }
+
+  isNameExist(contacts: Contact[], contact: Contact) {
+    const nameSelectedContact = contact.firstName + contact.lastName;
+
+    return contacts.some((res) => {
+      let nameAllContacts = res.firstName + res.lastName;
+
+      return nameAllContacts
+        .replace(/\s+/g, '')
+
+        .trim()
+
+        .toLowerCase()
+
+        .match(nameSelectedContact.replace(/\s+/g, '').trim().toLowerCase());
+    });
+  }
+
+  isNumberExist(contacts: Contact[], contact: Contact) {
+    return contacts.some(
+      (item: Contact) => item.phoneNumber === contact.phoneNumber
+    );
+  }
 }

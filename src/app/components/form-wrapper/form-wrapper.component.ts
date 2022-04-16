@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Contact } from 'src/app/models/contact';
+import { ContactsService } from 'src/app/services/contacts.service';
 import { FormValidationService } from 'src/app/services/form-validation.service';
 import * as uuid from 'uuid';
 
@@ -28,6 +29,7 @@ export class FormWrapperComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private formService: FormValidationService,
+    private contactService: ContactsService,
     private router: Router
   ) {
     this.devContactForm();
@@ -94,8 +96,8 @@ export class FormWrapperComponent implements OnInit {
       ];
 
       if (
-        !this.isNumberExist(contacts, newContact) &&
-        !this.isNameExist(contacts, newContact)
+        !this.contactService.isNumberExist(contacts, newContact) &&
+        !this.contactService.isNameExist(contacts, newContact)
       ) {
         localStorage.clear();
 
@@ -107,10 +109,10 @@ export class FormWrapperComponent implements OnInit {
         this.contactForm.reset();
 
         this.router.navigate(['']);
-      } else if (this.isNameExist(contacts, newContact)) {
-        alert('This Contact Name is exist');
-      } else if (this.isNumberExist(contacts, newContact)) {
+      } else if (this.contactService.isNumberExist(contacts, newContact)) {
         alert('This Phone Number is exist');
+      } else if (this.contactService.isNameExist(contacts, newContact)) {
+        alert('This Contact Name is exist');
       }
     }
   }
@@ -128,8 +130,14 @@ export class FormWrapperComponent implements OnInit {
       );
 
       if (
-        !this.isNumberExist(contactsWithoutEditedContact, editedContact) &&
-        !this.isNameExist(contactsWithoutEditedContact, editedContact)
+        !this.contactService.isNumberExist(
+          contactsWithoutEditedContact,
+          editedContact
+        ) &&
+        !this.contactService.isNameExist(
+          contactsWithoutEditedContact,
+          editedContact
+        )
       ) {
         localStorage.clear();
 
@@ -141,35 +149,12 @@ export class FormWrapperComponent implements OnInit {
         this.contactForm.reset();
 
         this.router.navigate(['']);
-      } else if (this.isNameExist(contacts, editedContact)) {
-        alert('This Contact Name is exist');
-      } else if (this.isNumberExist(contacts, editedContact)) {
+      } else if (this.contactService.isNumberExist(contacts, editedContact)) {
         alert('This Phone Number is exist');
+      } else if (this.contactService.isNameExist(contacts, editedContact)) {
+        alert('This Contact Name is exist');
       }
     }
-  }
-
-  isNameExist(contacts: Contact[], contact: Contact) {
-    const nameSelectedContact = contact.firstName + contact.lastName;
-
-    return contacts.some((res) => {
-      let nameAllContacts = res.firstName + res.lastName;
-
-      return nameAllContacts
-        .replace(/\s+/g, '')
-
-        .trim()
-
-        .toLowerCase()
-
-        .match(nameSelectedContact.replace(/\s+/g, '').trim().toLowerCase());
-    });
-  }
-
-  isNumberExist(contacts: Contact[], contact: Contact) {
-    return contacts.some(
-      (item: Contact) => item.phoneNumber === contact.phoneNumber
-    );
   }
 
   showErrors(fieldName: string): boolean {
