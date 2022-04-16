@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, delay, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { Contact } from '../models/contact';
 
 const contacts: Contact[] = [

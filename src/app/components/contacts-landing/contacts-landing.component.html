@@ -9,20 +9,20 @@
       <input
         matInput
         type="text"
-        [(ngModel)]="queryValue"
-        (ngModelChange)="query()"
+        [(ngModel)]="searcherValue"
+        (ngModelChange)="searcher()"
       />
       <button
-        *ngIf="queryValue"
+        *ngIf="searcherValue"
         matSuffix
         mat-icon-button
         aria-label="Clear"
-        (click)="clearQuery()"
+        (click)="clearSearcher()"
       >
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-    <button mat-icon-button matSuffix (click)="addContact()">
+    <button mat-icon-button matSuffix (click)="navigateToAddContact()">
       <mat-icon>add</mat-icon>
     </button>
   </section>
@@ -44,7 +44,7 @@
           <button
             mat-icon-button
             class="contact-button edit"
-            (click)="editContact(contact)"
+            (click)="navigateToEditContact(contact)"
           >
             <mat-icon>edit</mat-icon>
           </button>

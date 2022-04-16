@@ -19,6 +19,7 @@ import { AddContactComponent } from './components/add-contact/add-contact.compon
 import { MatNativeDateModule } from '@angular/material/core';
 import { InputErrorsComponent } from './components/input-errors/input-errors.component';
 import { EditContactComponent } from './components/edit-contact/edit-contact.component';
+import { FormWrapperComponent } from './components/form-wrapper/form-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { EditContactComponent } from './components/edit-contact/edit-contact.com
     AddContactComponent,
     InputErrorsComponent,
     EditContactComponent,
+    FormWrapperComponent,
   ],
   imports: [
     BrowserModule,
