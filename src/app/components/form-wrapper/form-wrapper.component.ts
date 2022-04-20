@@ -68,8 +68,7 @@ export class FormWrapperComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          Validators.min(100000000),
-          Validators.max(10000000000000000),
+          this.formService.isValidPhone,
         ]),
       ],
 
