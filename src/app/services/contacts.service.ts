@@ -73,6 +73,8 @@ export const MODEL_CONTACT: Contact = {
   providedIn: 'root',
 })
 export class ContactsService {
+  isEditContact$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   editContact$: BehaviorSubject<Contact> = new BehaviorSubject(MODEL_CONTACT);
 
   constructor() {}

@@ -79,13 +79,15 @@ export class ContactsLandingComponent implements OnInit {
   }
 
   navigateToAddContact() {
-    this.router.navigate(['add-contact']);
+    this.router.navigate(['contact']);
   }
 
   navigateToEditContact(contact: Contact) {
+    this.contactsService.isEditContact$.next(true);
+
     this.contactsService.editContact$.next(contact);
 
-    this.router.navigate(['edit-contact']);
+    this.router.navigate(['contact']);
   }
 
   deleteContact(id: string) {

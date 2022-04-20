@@ -15,21 +15,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { ModalComponent } from './components/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { AddContactComponent } from './components/add-contact/add-contact.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { InputErrorsComponent } from './components/input-errors/input-errors.component';
-import { EditContactComponent } from './components/edit-contact/edit-contact.component';
 import { FormWrapperComponent } from './components/form-wrapper/form-wrapper.component';
+import { AddEditContactComponent } from './components/add-edit-contact/add-edit-contact.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactsLandingComponent,
     ModalComponent,
-    AddContactComponent,
     InputErrorsComponent,
-    EditContactComponent,
     FormWrapperComponent,
+    AddEditContactComponent,
   ],
   imports: [
     BrowserModule,
