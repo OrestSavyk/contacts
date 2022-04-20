@@ -19,4 +19,19 @@ export class FormValidationService {
 
     return { email: true };
   }
+
+  isValidPhone(control: AbstractControl): ValidationErrors {
+    const currentPhoneValue = control.value;
+
+    if (
+      !currentPhoneValue ||
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(
+        currentPhoneValue
+      )
+    ) {
+      return null as any;
+    }
+
+    return { phoneNumber: true };
+  }
 }
