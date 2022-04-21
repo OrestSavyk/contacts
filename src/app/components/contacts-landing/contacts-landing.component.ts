@@ -11,8 +11,6 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./contacts-landing.component.scss'],
 })
 export class ContactsLandingComponent implements OnInit {
-  defaultContacts: Contact[] = [];
-
   contacts: Contact[] = [];
 
   searcherValue = '';
@@ -26,32 +24,17 @@ export class ContactsLandingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadDefaultContacts();
-
     this.setLocalStorage();
 
     this.loadContacts();
   }
 
   loadContacts() {
-    this.contacts = [...JSON.parse(localStorage.getItem('contacts'))];
+    this.contacts = this.contactsService.getContactsFromLocalStorage();
   }
 
   setLocalStorage() {
-    if (!JSON.parse(localStorage.getItem('contacts'))) {
-      localStorage.setItem(
-        'contacts',
-        JSON.stringify([...this.defaultContacts])
-      );
-    }
-  }
-
-  loadDefaultContacts() {
-    this.contactsService
-
-      .getContacts()
-
-      .subscribe((res) => (this.defaultContacts = res));
+    this.contactsService.setLocalStorage();
   }
 
   openDialog(data: Contact): void {

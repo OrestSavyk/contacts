@@ -95,8 +95,8 @@ export class FormWrapperComponent implements OnInit {
       ];
 
       if (
-        !this.contactService.isNumberExist(contacts, newContact) &&
-        !this.contactService.isNameExist(contacts, newContact)
+        !this.formService.isNumberExist(contacts, newContact) &&
+        !this.formService.isNameExist(contacts, newContact)
       ) {
         localStorage.clear();
 
@@ -108,9 +108,9 @@ export class FormWrapperComponent implements OnInit {
         this.contactForm.reset();
 
         this.router.navigate(['']);
-      } else if (this.contactService.isNumberExist(contacts, newContact)) {
+      } else if (this.formService.isNumberExist(contacts, newContact)) {
         alert('This Phone Number is exist');
-      } else if (this.contactService.isNameExist(contacts, newContact)) {
+      } else if (this.formService.isNameExist(contacts, newContact)) {
         alert('This Contact Name is exist');
       }
     }
@@ -129,11 +129,11 @@ export class FormWrapperComponent implements OnInit {
       );
 
       if (
-        !this.contactService.isNumberExist(
+        !this.formService.isNumberExist(
           contactsWithoutEditedContact,
           editedContact
         ) &&
-        !this.contactService.isNameExist(
+        !this.formService.isNameExist(
           contactsWithoutEditedContact,
           editedContact
         )
@@ -148,9 +148,9 @@ export class FormWrapperComponent implements OnInit {
         this.contactForm.reset();
 
         this.router.navigate(['']);
-      } else if (this.contactService.isNumberExist(contacts, editedContact)) {
+      } else if (this.formService.isNumberExist(contacts, editedContact)) {
         alert('This Phone Number is exist');
-      } else if (this.contactService.isNameExist(contacts, editedContact)) {
+      } else if (this.formService.isNameExist(contacts, editedContact)) {
         alert('This Contact Name is exist');
       }
     }
