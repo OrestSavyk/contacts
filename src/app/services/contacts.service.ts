@@ -13,7 +13,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
   {
-    id: '31ece2bd-ff7c-4f5e-9ccb-3d62e63d8f7d',
+    id: '31ece2bd-ff7c-4f5e-9ccb-3d62e63d8f2d',
     firstName: 'Oleg',
     lastName: 'Berezovskyi',
     phoneNumber: '380975802379',
@@ -22,7 +22,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
   {
-    id: '31ece2bd-ff7c-4f5e-9ccb-3d68e61d8f7d',
+    id: '31ece2bd-ff7c-4f5e-9ccb-3d68e61d8f3d',
     firstName: 'Maxym',
     lastName: 'Prystash',
     phoneNumber: '380973302387',
@@ -31,7 +31,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
   {
-    id: '31ece2bd-ff7c-4f9e-9ccb-3d68e66d8f7d',
+    id: '31ece2bd-ff7c-4f9e-9ccb-3d68e66d8f4d',
     firstName: 'Ivan',
     lastName: 'Scope',
     phoneNumber: '380983892387',
@@ -40,7 +40,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
   {
-    id: '33ece2bd-ff7c-4f5e-3ccb-3d68e66d8f7d',
+    id: '33ece2bd-ff7c-4f5e-3ccb-3d68e66d8f5d',
     firstName: 'Bohdan',
     lastName: 'Sydorenko',
     phoneNumber: '380973862383',
@@ -49,7 +49,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
   {
-    id: '39ece2bd-ff4c-4f5e-9ccb-3d68e66d8f7d',
+    id: '39ece2bd-ff4c-4f5e-9ccb-3d68e66d8f6d',
     firstName: 'Orest',
     lastName: 'Mik',
     phoneNumber: '380953802325',

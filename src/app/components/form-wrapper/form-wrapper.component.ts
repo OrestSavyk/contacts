@@ -142,7 +142,7 @@ export class FormWrapperComponent implements OnInit {
 
         localStorage.setItem(
           'contacts',
-          JSON.stringify([...contacts, editedContact])
+          JSON.stringify([...contactsWithoutEditedContact, editedContact])
         );
 
         this.contactForm.reset();
