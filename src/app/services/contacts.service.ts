@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, from } from 'rxjs';
 import { Contact } from '../models/contact';
 
 const contacts: Contact[] = [
@@ -13,7 +13,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
   {
-    id: '31ece2bd-ff7c-4f5e-9ccb-3d62e63d8f7d',
+    id: '31ece2bd-ff7c-4f5e-9ccb-3d62e63d8f2d',
     firstName: 'Oleg',
     lastName: 'Berezovskyi',
     phoneNumber: '380975802379',
@@ -22,7 +22,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
   {
-    id: '31ece2bd-ff7c-4f5e-9ccb-3d68e61d8f7d',
+    id: '31ece2bd-ff7c-4f5e-9ccb-3d68e61d8f3d',
     firstName: 'Maxym',
     lastName: 'Prystash',
     phoneNumber: '380973302387',
@@ -31,7 +31,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
   {
-    id: '31ece2bd-ff7c-4f9e-9ccb-3d68e66d8f7d',
+    id: '31ece2bd-ff7c-4f9e-9ccb-3d68e66d8f4d',
     firstName: 'Ivan',
     lastName: 'Scope',
     phoneNumber: '380983892387',
@@ -40,7 +40,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
   {
-    id: '33ece2bd-ff7c-4f5e-3ccb-3d68e66d8f7d',
+    id: '33ece2bd-ff7c-4f5e-3ccb-3d68e66d8f5d',
     firstName: 'Bohdan',
     lastName: 'Sydorenko',
     phoneNumber: '380973862383',
@@ -49,7 +49,7 @@ const contacts: Contact[] = [
     birth: '2020-12-22T22:00:00.000Z',
   },
   {
-    id: '39ece2bd-ff4c-4f5e-9ccb-3d68e66d8f7d',
+    id: '39ece2bd-ff4c-4f5e-9ccb-3d68e66d8f6d',
     firstName: 'Orest',
     lastName: 'Mik',
     phoneNumber: '380953802325',
@@ -80,29 +80,16 @@ export class ContactsService {
   constructor() {}
 
   getContacts() {
-    return of<Contact[]>(contacts);
+    return from<Contact[]>(contacts);
   }
 
-  isNameExist(contacts: Contact[], contact: Contact) {
-    const nameSelectedContact = contact.firstName + contact.lastName;
-
-    return contacts.some((res) => {
-      let nameAllContacts = res.firstName + res.lastName;
-
-      return nameAllContacts
-        .replace(/\s+/g, '')
-
-        .trim()
-
-        .toLowerCase()
-
-        .match(nameSelectedContact.replace(/\s+/g, '').trim().toLowerCase());
-    });
+  getContactsFromLocalStorage(): Contact[] {
+    return [...JSON.parse(localStorage.getItem('contacts'))];
   }
 
-  isNumberExist(contacts: Contact[], contact: Contact) {
-    return contacts.some(
-      (item: Contact) => item.phoneNumber === contact.phoneNumber
-    );
+  setLocalStorage() {
+    if (!JSON.parse(localStorage.getItem('contacts'))) {
+      return localStorage.setItem('contacts', JSON.stringify([...contacts]));
+    }
   }
 }

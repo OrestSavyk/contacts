@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { Contact } from '../models/contact';
 
 @Injectable({
   providedIn: 'root',
@@ -33,5 +34,28 @@ export class FormValidationService {
     }
 
     return { phoneNumber: true };
+  }
+
+  isNameExist(contacts: Contact[], contact: Contact) {
+    const nameSelectedContact = contact.firstName + contact.lastName;
+
+    return contacts.some((res) => {
+      let nameAllContacts = res.firstName + res.lastName;
+
+      return nameAllContacts
+        .replace(/\s+/g, '')
+
+        .trim()
+
+        .toLowerCase()
+
+        .match(nameSelectedContact.replace(/\s+/g, '').trim().toLowerCase());
+    });
+  }
+
+  isNumberExist(contacts: Contact[], contact: Contact) {
+    return contacts.some(
+      (item: Contact) => item.phoneNumber === contact.phoneNumber
+    );
   }
 }

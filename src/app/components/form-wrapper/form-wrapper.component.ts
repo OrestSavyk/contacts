@@ -7,7 +7,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Contact } from 'src/app/models/contact';
-import { ContactsService } from 'src/app/services/contacts.service';
 import { FormValidationService } from 'src/app/services/form-validation.service';
 import * as uuid from 'uuid';
 
@@ -29,7 +28,6 @@ export class FormWrapperComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private formService: FormValidationService,
-    private contactService: ContactsService,
     private router: Router
   ) {
     this.devContactForm();
@@ -95,8 +93,8 @@ export class FormWrapperComponent implements OnInit {
       ];
 
       if (
-        !this.contactService.isNumberExist(contacts, newContact) &&
-        !this.contactService.isNameExist(contacts, newContact)
+        !this.formService.isNumberExist(contacts, newContact) &&
+        !this.formService.isNameExist(contacts, newContact)
       ) {
         localStorage.clear();
 
@@ -108,9 +106,9 @@ export class FormWrapperComponent implements OnInit {
         this.contactForm.reset();
 
         this.router.navigate(['']);
-      } else if (this.contactService.isNumberExist(contacts, newContact)) {
+      } else if (this.formService.isNumberExist(contacts, newContact)) {
         alert('This Phone Number is exist');
-      } else if (this.contactService.isNameExist(contacts, newContact)) {
+      } else if (this.formService.isNameExist(contacts, newContact)) {
         alert('This Contact Name is exist');
       }
     }
@@ -129,11 +127,11 @@ export class FormWrapperComponent implements OnInit {
       );
 
       if (
-        !this.contactService.isNumberExist(
+        !this.formService.isNumberExist(
           contactsWithoutEditedContact,
           editedContact
         ) &&
-        !this.contactService.isNameExist(
+        !this.formService.isNameExist(
           contactsWithoutEditedContact,
           editedContact
         )
@@ -142,15 +140,15 @@ export class FormWrapperComponent implements OnInit {
 
         localStorage.setItem(
           'contacts',
-          JSON.stringify([...contacts, editedContact])
+          JSON.stringify([...contactsWithoutEditedContact, editedContact])
         );
 
         this.contactForm.reset();
 
         this.router.navigate(['']);
-      } else if (this.contactService.isNumberExist(contacts, editedContact)) {
+      } else if (this.formService.isNumberExist(contacts, editedContact)) {
         alert('This Phone Number is exist');
-      } else if (this.contactService.isNameExist(contacts, editedContact)) {
+      } else if (this.formService.isNameExist(contacts, editedContact)) {
         alert('This Contact Name is exist');
       }
     }
