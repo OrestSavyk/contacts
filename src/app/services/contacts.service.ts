@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, from } from 'rxjs';
 import { Contact } from '../models/contact';
 
 const contacts: Contact[] = [
@@ -80,7 +80,7 @@ export class ContactsService {
   constructor() {}
 
   getContacts() {
-    return of<Contact[]>(contacts);
+    return from<Contact[]>(contacts);
   }
 
   getContactsFromLocalStorage(): Contact[] {
