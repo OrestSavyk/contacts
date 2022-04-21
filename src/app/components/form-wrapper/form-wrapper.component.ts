@@ -7,7 +7,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Contact } from 'src/app/models/contact';
-import { ContactsService } from 'src/app/services/contacts.service';
 import { FormValidationService } from 'src/app/services/form-validation.service';
 import * as uuid from 'uuid';
 
@@ -29,7 +28,6 @@ export class FormWrapperComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private formService: FormValidationService,
-    private contactService: ContactsService,
     private router: Router
   ) {
     this.devContactForm();
